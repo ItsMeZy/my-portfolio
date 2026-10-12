@@ -5,8 +5,8 @@ import { FiLinkedin } from 'react-icons/fi';
 
 export default function Hero() {
   return (
-    <section id="top" className="min-h-screen flex flex-col justify-center items-start px-6 md:px-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 transition-colors duration-300">
-      <motion.div 
+  <section id="top" className="min-h-[100dvh] flex flex-col justify-start pt-32 md:pt-0 md:justify-center items-start px-6 md:px-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 transition-colors duration-300">
+        <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
