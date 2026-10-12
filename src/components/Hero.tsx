@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-start px-6 md:px-24 bg-[#0a0a0a] text-stone-200">
+    <section id="top" className="min-h-screen flex flex-col justify-center items-start px-6 md:px-24 bg-[#0a0a0a] text-stone-200">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
