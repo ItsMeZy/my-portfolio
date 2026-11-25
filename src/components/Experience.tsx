@@ -1,51 +1,94 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion'
+import { Code2, Database, GraduationCap, Layers3, Workflow } from 'lucide-react'
+import { certification, education, experience, skills } from '../portfolio'
 
-const experiences = [
-  {
-    role: "Software Engineer",
-    company: "TCPOS",
-    period: "Recent",
-    description: "Engineered a comprehensive React-based backoffice application and developed the Web Reporting Engine. Architected solutions utilizing C# and .NET 8, bridging complex SQL Server and Oracle databases with modern front-end interfaces.",
-    tech: ["C#", ".NET 8", "React", "TypeScript", "Docker", "SQL Server"]
-  }
-];
+const areas = [
+  { Icon: Layers3, title: 'Enterprise POS & web applications', text: 'Build and maintain POS software and React back-office interfaces for retail and hospitality workflows.' },
+  { Icon: Code2, title: 'Modular .NET services', text: 'Develop C# services, reporting tools, and authentication and identity integrations.' },
+  { Icon: Database, title: 'Data integration', text: 'Work with SQL Server and Oracle to connect relational data to web applications and reports.' },
+  { Icon: Workflow, title: 'Testing & deployment', text: 'Automate test and deployment workflows and package services for containerized environments.' },
+]
 
 export default function Experience() {
-  return (
-    <section id="experience" className="py-32 px-6 md:px-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto">
-        <h3 className="text-3xl md:text-4xl font-bold mb-16 flex items-center gap-4">
-          <span className="text-blue-600 dark:text-blue-500 font-mono text-xl">01.</span> Professional Journey
-        </h3>
+  const reduceMotion = useReducedMotion()
 
-        <div className="space-y-12 border-l border-slate-200 dark:border-slate-800 ml-4 md:ml-0 pl-8 relative">
-          {experiences.map((exp, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="relative group"
-            >
-              {/* Glowing timeline dot */}
-              <div className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-2 border-blue-600 dark:border-blue-500 bg-white dark:bg-slate-900 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 transition-colors duration-300"></div>
-              
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                <h4 className="text-2xl font-semibold">{exp.role} <span className="text-blue-600 dark:text-blue-400">@ {exp.company}</span></h4>
-                <span className="text-slate-500 font-mono text-sm">{exp.period}</span>
-              </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{exp.description}</p>
-              <div className="flex flex-wrap gap-3">
-                {exp.tech.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-xs font-mono text-blue-700 dark:text-blue-200/70">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+  return (
+    <section id="experience" className="section experience-section" aria-labelledby="experience-title">
+      <div className="container">
+        <div className="section-header">
+          <h2 id="experience-title">Experience &amp; education</h2>
         </div>
+        <div className="career-grid">
+          <article className="experience-card">
+            <div className="experience-role">
+              <span className="experience-icon"><Code2 size={26} aria-hidden="true" /></span>
+              <div>
+                <p>{experience.company}</p>
+                <h3>{experience.role}</h3>
+              </div>
+            </div>
+            <ul className="career-periods" aria-label="Employment history">
+              {experience.periods.map(({ type, start, startLabel, end, endLabel }) => (
+                <li key={type}>
+                  <h4>{type}</h4>
+                  <p><time dateTime={start}>{startLabel}</time> – {end ? <time dateTime={end}>{endLabel}</time> : endLabel}</p>
+                </li>
+              ))}
+            </ul>
+            <motion.ul className="experience-areas" initial={reduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={{
+              visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.09 } },
+            }}>
+              {areas.map(({ Icon, title, text }) => (
+                <motion.li key={title} variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0, transition: { duration: reduceMotion ? 0 : 0.38 } },
+                }}>
+                  <Icon size={20} strokeWidth={1.7} aria-hidden="true" />
+                  <div><h4>{title}</h4><p>{text}</p></div>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </article>
+          <article className="education-card">
+            <div className="education-top">
+              <span className="experience-icon"><GraduationCap size={26} aria-hidden="true" /></span>
+              <p className="eyebrow">Education</p>
+            </div>
+            <h3>{education.field}</h3>
+            <p className="education-institution">{education.institution} <span>{education.fullName}</span></p>
+            <ul className="education-records">
+              <li>
+                <h4>Master of Science studies</h4>
+                <p>{education.masterPeriod}</p>
+              </li>
+              <li>
+                <h4>Bachelor of Science</h4>
+                <p>{education.bachelorPeriod}</p>
+                <p><a href={education.source}>Thesis</a> · {education.thesis}</p>
+              </li>
+              <li>
+                <h4>{certification.name}</h4>
+                <p>{certification.issuer} · <time dateTime={certification.date}>{certification.dateLabel}</time></p>
+              </li>
+            </ul>
+          </article>
+        </div>
+        <section className="technical-skills" aria-labelledby="skills-title">
+          <h3 id="skills-title">Technical skills</h3>
+          <dl className="skills-grid">
+            {skills.map(({ title, tools }) => (
+              <div className="skill-group" key={title}>
+                <dt>{title}</dt>
+                <dd>
+                  <ul className="tags">
+                    {tools.map((tool) => <li key={tool}>{tool}</li>)}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </div>
     </section>
-  );
+  )
 }
