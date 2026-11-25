@@ -57,10 +57,11 @@ export const projects: Project[] = [
   },
   {
     format: 'Desktop',
-    category: 'Photography & applied AI',
-    title: 'RAW Photo Culling',
-    description: 'A desktop project for Windows and macOS that helps photographers sort RAW shoots. A Python sidecar groups similar frames and assesses sharpness and lighting.',
-    stack: ['Tauri v2', 'Rust', 'Python', 'React', 'Tailwind CSS'],
+    category: 'Windows desktop · Photography',
+    title: 'Photo Cull',
+    description: 'A desktop app that helps photographers review RAW shoots offline. It groups similar frames, scores sharpness, exposure, and composition, and saves review decisions locally while preserving the original files.',
+    stack: ['Tauri v2', 'Rust', 'Python', 'React', 'TypeScript', 'Tailwind CSS'],
+    repository: 'https://github.com/ItsMeZy/photo-cull',
   },
   {
     format: 'Web',
