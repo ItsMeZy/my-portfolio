@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
-import { projects } from '../portfolio'
+import { profile, projects } from '../portfolio'
 
 const sections = [
   { id: 'experience', label: 'Career' },
@@ -57,9 +57,9 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a href="#top" className="wordmark" aria-label="Zyril Gatchalian home">
+        <a href="#top" className="wordmark" aria-label={`${profile.name} home`}>
           <span className="monogram" aria-hidden="true">ZG</span>
-          <span className="wordmark-name">Zyril Gatchalian</span>
+          <span>{profile.name}</span>
         </a>
         <nav className="site-nav" aria-label="Main navigation">
           {sections.map(({ id, label }) => (
